@@ -9,7 +9,10 @@ import java.awt.image.BufferedImage
 import kotlin.math.min
 import net.mamoe.mirai.message.data.Image as MiraiImage
 
+@Suppress("unused")
 class MessageRenderer(private val params: RenderParams = RenderParams()) {
+
+    constructor(config: RenderParams.() -> Unit) : this(RenderParams().also(config))
 
     fun renderMessages(
         messages: List<MessageInfo>,
@@ -139,7 +142,8 @@ class MessageRenderer(private val params: RenderParams = RenderParams()) {
 
         // Step 4. Determine the width of image
         val layoutWidth = min(maxLayoutWidth, totalWidth.toInt())
-        val imageWidth = Integer.max(layoutWidth, titleRegionWidth + nicknameWidth) + params.commonMargin * 2 + avatarSize
+        val imageWidth =
+            Integer.max(layoutWidth, titleRegionWidth + nicknameWidth) + params.commonMargin * 2 + avatarSize
 
         // Step 5. Determine the height of image as well the position of objects
         // Assume that nickname and avatar are placed at left
